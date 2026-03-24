@@ -1,18 +1,29 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <script>
-    const DESTINO = "https://script.google.com/macros/s/AKfycbwpmRJgMKT6xmq9sP9Z9zTS4amUN00L1XKPPMLpkqwKoDSMlnyJEJpUtJCQ_i30Vw1r/exec";
-
-    // Intento automático SOLO si no está en iframe
-    if (window.top === window.self) {
-      setTimeout(() => location.replace(DESTINO), 100);
-    }
-  </script>
-
   <meta charset="utf-8">
   <title>Punto Ahorro - Presupuesto</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    const DESTINO = "https://script.google.com/macros/s/AKfycbwpmRJgMKT6xmq9sP9Z9zTS4amUN00L1XKPPMLpkqwKoDSMlnyJEJpUtJCQ_i30Vw1r/exec";
+
+    function abrirDestino() {
+      try {
+        if (window.top !== window.self) {
+          window.top.location.href = DESTINO;
+        } else {
+          window.location.replace(DESTINO);
+        }
+      } catch (e) {
+        try {
+          window.location.href = DESTINO;
+        } catch (_) {}
+      }
+    }
+
+    setTimeout(abrirDestino, 300);
+  </script>
 
   <style>
     body {
@@ -33,28 +44,11 @@
     }
     .msg { font-size: 18px; font-weight: 600; }
     .muted { color: #6b7280; font-size: 14px; margin-top: 8px; }
-
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #10b981;
-      color: white;
-      cursor: pointer;
-    }
   </style>
 </head>
-
 <body>
   <img src="https://tupuntoahorro.com/wp-content/uploads/2024/02/F2-Logo-Punto-Ahorro-1024x328.jpg" alt="Punto Ahorro">
-  
-  <div class="msg">Cargando presupuesto, un momento… ⚡</div>
-  <div class="muted">Si no se abre automáticamente, pulsa abajo</div>
-
-  <button onclick="window.open(DESTINO, '_blank')">
-    Abrir presupuestador
-  </button>
+  <div class="msg">Abriendo presupuestador… ⚡</div>
+  <div class="muted">Si ClickUp lo bloquea, ábrelo en grande</div>
 </body>
 </html>
